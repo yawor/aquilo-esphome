@@ -6,12 +6,6 @@
 namespace esphome {
 namespace aquilo {
 
-struct Packet {
- std::string content;
- float rssi;
- float snr;
-};
-
 struct Message {
  uint32_t transmitter_id;
  uint32_t measurement_count;
@@ -37,15 +31,14 @@ class AquiloListener {
 class Aquilo : public sx127x::SX127xListener, public Component {
  public:
   //void dump_config() override;
-  void loop() override;
 
   void on_packet(const std::vector<uint8_t> &packet, float rssi, float snr) override;
 
   void register_listener(AquiloListener *listener) { this->listeners_.push_back(listener); }
 
  protected:
-  std::queue<Packet> packets_;
-  std::queue<Message> messages_;
+  void process_packet_(const std::vector<uint8_t> &packet, float rssi, float snr);
+
   std::vector<AquiloListener *> listeners_{};
 };
 

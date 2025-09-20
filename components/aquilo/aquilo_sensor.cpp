@@ -19,17 +19,17 @@ void AquiloSensor::dump_config() {
 
 void AquiloSensor::handle_message(const Message &message) {
   if (this->distance_sensor_ != nullptr)
-    this->distance_sensor_->publish_state(message.distance);
+    this->defer([this, message] { this->distance_sensor_->publish_state(message.distance); });
   if (this->voltage_sensor_ != nullptr)
-    this->voltage_sensor_->publish_state(message.voltage);
+    this->defer([this, message] { this->voltage_sensor_->publish_state(message.voltage); });
   if (this->measurement_count_sensor_ != nullptr)
-    this->measurement_count_sensor_->publish_state(message.measurement_count);
+    this->defer([this, message] { this->measurement_count_sensor_->publish_state(message.measurement_count); });
   if (this->prev_measurement_count_sensor_ != nullptr)
-    this->prev_measurement_count_sensor_->publish_state(message.prev_measurement_count);
+    this->defer([this, message] { this->prev_measurement_count_sensor_->publish_state(message.prev_measurement_count); });
   if (this->rssi_sensor_ != nullptr)
-    this->rssi_sensor_->publish_state(message.rssi);
+    this->defer([this, message] { this->rssi_sensor_->publish_state(message.rssi); });
   if (this->snr_sensor_ != nullptr)
-    this->snr_sensor_->publish_state(message.snr);
+    this->defer([this, message] { this->snr_sensor_->publish_state(message.snr); });
 }
 
 }
