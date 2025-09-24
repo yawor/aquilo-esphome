@@ -41,14 +41,13 @@ CONFIG_SCHEMA = cv.Schema({
     cv.Required(CONF_TRANSMITTER_ID): cv.hex_uint32_t,
     cv.Optional(CONF_DISTANCE): sensor.sensor_schema(
         unit_of_measurement=UNIT_MILLIMETER,
-        icon=ICON_GAUGE,
         accuracy_decimals=0,
         device_class=DEVICE_CLASS_DISTANCE,
         state_class=STATE_CLASS_MEASUREMENT,
+        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
     ),
     cv.Optional(CONF_VOLTAGE): sensor.sensor_schema(
         unit_of_measurement=UNIT_MILLIVOLT,
-        icon=ICON_BATTERY,
         accuracy_decimals=0,
         device_class=DEVICE_CLASS_VOLTAGE,
         state_class=STATE_CLASS_MEASUREMENT,
@@ -68,7 +67,6 @@ CONFIG_SCHEMA = cv.Schema({
     ),
     cv.Optional(CONF_RSSI): sensor.sensor_schema(
         unit_of_measurement=UNIT_DECIBEL_MILLIWATT,
-        icon=ICON_SIGNAL,
         accuracy_decimals=0,
         device_class=DEVICE_CLASS_SIGNAL_STRENGTH,
         state_class=STATE_CLASS_MEASUREMENT,
@@ -76,7 +74,6 @@ CONFIG_SCHEMA = cv.Schema({
     ),
     cv.Optional(CONF_SNR): sensor.sensor_schema(
         unit_of_measurement=UNIT_DECIBEL,
-        icon=ICON_SIGNAL,
         accuracy_decimals=0,
         device_class=DEVICE_CLASS_SIGNAL_STRENGTH,
         state_class=STATE_CLASS_MEASUREMENT,
